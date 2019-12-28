@@ -248,6 +248,7 @@ export default class MainPage extends Component {
             beerName: "text",
             brewerName:"text",
             rightText:"1",
+            previewRotation: 0,
     }};
     Copyright = ()=> {
         return (
@@ -324,6 +325,24 @@ export default class MainPage extends Component {
             }) }
         console.log(this.state.overlaySlider)
       };
+
+      rotateBottle = direction => {
+        let newRotation;
+        if(direction == 'right') {
+            newRotation = this.state.previewRotation + 10;
+        }
+        else {
+            newRotation = this.state.previewRotation - 10;
+        }
+
+        if(newRotation >= 360){
+            newRotation =- 360;
+        }
+
+        this.setState({
+            previewRotation: newRotation,
+        })
+      }
 
       handleImageChange  = name => e =>{
 
@@ -515,8 +534,10 @@ export default class MainPage extends Component {
                 <img src={Bottle} style={{position: "absolute", top: '30%', left:'40%', width: '20%', height: '70%'}}></img>
 
                 <div id="container">
+                    <button onMouseDown={() => { this.rotateBottle('left')}}>Left</button>
+                    <button onMouseDown={() => { this.rotateBottle('right')}}>Right</button>
                     <div id="frame">
-                        <div class="strip">
+                        <div class="strip" style={{transform: `rotateY(${this.state.previewRotation}deg)`}}>
                             
                             
                             <div style={{backgroundImage: `url(\"${this.state.fullImage}\")`}} class="a"></div>
@@ -2003,15 +2024,11 @@ const PageStyler = styled.div`
 	-webkit-animation-play-state:paused}
 	  
 #frame {width: 33px;
-	-moz-transform-style: preserve-3d;
-	-webkit-transform-style: preserve-3d;  /* translate must be last */
-	-moz-transform: rotateX(35deg) rotateY(45deg) rotateZ(0deg) translate3d(325px,-70px,50px);
-	-webkit-transform: rotateX(35deg) rotateY(45deg) rotateZ(0deg) translate3d(325px,-70px,50px)}
-	
+    transform: translate3d(250px, 780px, -700px)}
+
 .strip {-moz-transform-style: preserve-3d;
 	-webkit-transform-style: preserve-3d;
-	-moz-animation: spin 25s infinite linear;
-	-webkit-animation: spin 25s infinite linear}
+}
 
 .strip div {
 	position: absolute;
