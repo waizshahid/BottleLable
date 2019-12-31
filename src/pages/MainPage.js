@@ -45,6 +45,8 @@ import Carlsberg from '../images/carlsberg-logo-white.png'
 import Eighteen from '../images/18.png'
 import Bottle from '../images/bottle3.png'
 import html2canvas from 'html2canvas';
+import ArrowRight from '@material-ui/icons/ArrowForwardIos';
+import ArrowLeft from '@material-ui/icons/ArrowBackIos';
 
 
 
@@ -248,6 +250,7 @@ export default class MainPage extends Component {
             beerName: "text",
             brewerName:"text",
             rightText:"1",
+            previewRotation: 0,
     }};
     Copyright = ()=> {
         return (
@@ -261,9 +264,13 @@ export default class MainPage extends Component {
           </Typography>
         );
       }
+      renderBottleImage = () => {
+          
+      }
       handleTabChange = (event, newValue) => {
           if(newValue==='1') {
                 html2canvas(document.querySelector("#fullLable")).then(canvas => {
+                    console.log(canvas)
                     var data = canvas.toDataURL('../images/jpeg', 0.9);
                     let src = encodeURI(data);
                     document.body.appendChild(canvas)
@@ -324,6 +331,24 @@ export default class MainPage extends Component {
             }) }
         console.log(this.state.overlaySlider)
       };
+
+      rotateBottle = direction => {
+        let newRotation;
+        if(direction == 'right') {
+            newRotation = this.state.previewRotation + 10;
+        }
+        else {
+            newRotation = this.state.previewRotation - 10;
+        }
+
+        if(newRotation >= 360){
+            newRotation =- 360;
+        }
+
+        this.setState({
+            previewRotation: newRotation,
+        })
+      }
 
       handleImageChange  = name => e =>{
 
@@ -513,36 +538,38 @@ export default class MainPage extends Component {
             :
             <div style={{position: "relative", backgroundColor: '#eeeeee', width: '100%', height: '700px'}}>
                 <img src={Bottle} style={{position: "absolute", top: '30%', left:'40%', width: '20%', height: '70%'}}></img>
-
+                <Button style={{position: "absolute", top: '30%', left:'0%', width: '10%', height: '70%'}} sty onMouseDown={() => { this.rotateBottle('left')}}><ArrowLeft style={{fontSize: '40'}}/></Button>
+                <Button style={{position: "absolute", top: '30%', left:'90%', width: '10%', height: '70%'}} onMouseDown={() => { this.rotateBottle('right')}}><ArrowRight style={{fontSize: '40'}}/></Button>
                 <div id="container">
+
                     <div id="frame">
-                        <div class="strip">
+                        <div class="strip" style={{transform: `rotateY(${this.state.previewRotation}deg)`}}>
                             
                             
-                            <div style={{backgroundImage: `url(\"${this.state.fullImage}\")`}} class="a"></div>
-                            <div style={{backgroundImage: `url(\"${this.state.fullImage}\")`}} class="b"></div>
-                            <div style={{backgroundImage: `url(\"${this.state.fullImage}\")`}} class="c"></div>
-                            <div style={{backgroundImage: `url(\"${this.state.fullImage}\")`}} class="d"></div>
-                            <div style={{backgroundImage: `url(\"${this.state.fullImage}\")`}} class="e"></div>
-                            <div style={{backgroundImage: `url(\"${this.state.fullImage}\")`}} class="f"></div>
-                            <div style={{backgroundImage: `url(\"${this.state.fullImage}\")`}} class="g"></div>
-                            <div style={{backgroundImage: `url(\"${this.state.fullImage}\")`}} class="h"></div>
-                            <div style={{backgroundImage: `url(\"${this.state.fullImage}\")`}} class="i"></div>
-                            <div style={{backgroundImage: `url(\"${this.state.fullImage}\")`}} class="j"></div>
-                            <div style={{backgroundImage: `url(\"${this.state.fullImage}\")`}} class="k"></div>
-                            <div style={{backgroundImage: `url(\"${this.state.fullImage}\")`}} class="l"></div>
-                            <div style={{backgroundImage: `url(\"${this.state.fullImage}\")`}} class="m"></div>
-                            <div style={{backgroundImage: `url(\"${this.state.fullImage}\")`}} class="n"></div>
-                            <div style={{backgroundImage: `url(\"${this.state.fullImage}\")`}} class="o"></div>
-                            <div style={{backgroundImage: `url(\"${this.state.fullImage}\")`}} class="p"></div>
-                            <div style={{backgroundImage: `url(\"${this.state.fullImage}\")`}} class="q"></div>
-                            <div style={{backgroundImage: `url(\"${this.state.fullImage}\")`}} class="r"></div>
-                            <div style={{backgroundImage: `url(\"${this.state.fullImage}\")`}} class="s"></div>
-                            <div style={{backgroundImage: `url(\"${this.state.fullImage}\")`}} class="t"></div>
-                            <div style={{backgroundImage: `url(\"${this.state.fullImage}\")`}} class="u"></div>
-                            <div style={{backgroundImage: `url(\"${this.state.fullImage}\")`}} class="v"></div>
-                            <div style={{backgroundImage: `url(\"${this.state.fullImage}\")`}} class="w"></div>
-                            <div style={{backgroundImage: `url(\"${this.state.fullImage}\")`}} class="x"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="a"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="b"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="c"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="d"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="e"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="f"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="g"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="h"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="i"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="j"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="k"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="l"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="m"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="n"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="o"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="p"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="q"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="r"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="s"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="t"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="u"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="v"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="w"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="x"></div>
 
                         </div>
                     </div>
@@ -1872,40 +1899,39 @@ const PageStyler = styled.div`
   }
   .first {
     display: flex;
-
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
   }
   .rectangle {
       position: relative;
-      height: 327px;
+      height: 41vh;
       width:100%;
   }
   .rightSideBackground {
     position: absolute;
     top:0%;
     left:71%;
-    height: 327px;
+    height: 41vh;
     width:29%;
     }
   .secondaryBackground {
     position: absolute;
     top: 28%;
-    height: 31px;
+    height: 10%;
     width: 28%;
     background-color: #AAA;
   }
   .craftedByBar {
     position: absolute;
     top: 43%;
-    height: 31px;
+    height: 10%;
     width: 28%;
   }
   .barCode {
     position: absolute;
     top: 50%;
-    height: 164px;
+    height: 50%;
     width: 12%;
   }
   .brewed {
@@ -1918,7 +1944,7 @@ const PageStyler = styled.div`
   .eighteen {
     position: absolute;
     top: 44%;
-    left: 171px;
+    left: 26%;
     height: 5%;
     width: 2.5%;
   }
@@ -1961,17 +1987,16 @@ const PageStyler = styled.div`
   }
   .color {
     position: absolute;
-    margin-top: 20px;
+    margin-top: 3%;
   }
   .strength {
     position: absolute;
-    margin-top:40px;
+    margin-top:6%;
   }
   .dot {
     margin-top: 17px;
     height: 10px;
     width: 10px;
-
     margin-left: 95px;
     border-radius: 50%;
     display: inline-block;
@@ -1979,17 +2004,14 @@ const PageStyler = styled.div`
   }
   .beerNameTitle {
       position: relative;
-      margin: 20px;
-      padding-top: 20px;
+      margin: 10%;
+      padding-top: 10%;
   }
   .crafted {
     position: relative;
     margin: 20px;
     padding-top: 60px;
   }
-
-
-
   #container {
 	text-align:center;
 	margin:0 auto;
@@ -2003,23 +2025,16 @@ const PageStyler = styled.div`
 	-webkit-animation-play-state:paused}
 	  
 #frame {width: 33px;
-	-moz-transform-style: preserve-3d;
-	-webkit-transform-style: preserve-3d;  /* translate must be last */
-	-moz-transform: rotateX(35deg) rotateY(45deg) rotateZ(0deg) translate3d(325px,-70px,50px);
-	-webkit-transform: rotateX(35deg) rotateY(45deg) rotateZ(0deg) translate3d(325px,-70px,50px)}
-	
+    transform: translate3d(256px, 785px, -700px)}
 .strip {-moz-transform-style: preserve-3d;
 	-webkit-transform-style: preserve-3d;
-	-moz-animation: spin 25s infinite linear;
-	-webkit-animation: spin 25s infinite linear}
-
+}
 .strip div {
 	position: absolute;
 	border-width: thin 0;
-	height:320px;
+	height:367px;
 	width:34px;
 	opacity: 1;}
-
 .strip .a {background-position: 0 0;
 	   -moz-transform: rotateY(0deg) translateZ(124px);
 	-webkit-transform: rotateY(0deg) translateZ(124px)}
@@ -2115,7 +2130,6 @@ const PageStyler = styled.div`
 .strip .x {background-position: 30px 0;
 	   -moz-transform: rotateY(345deg) translateZ(124px);
 	-webkit-transform: rotateY(345deg) translateZ(124px)}
-
 @-moz-keyframes spin {
 	from { -moz-transform: rotateY(0)}
 	to   { -moz-transform: rotateY(-360deg)}}

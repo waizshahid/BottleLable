@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@material-ui/core": "latest",
+    "@material-ui/icons": "^4.5.1",
     "clsx": "latest",
     "html2canvas": "^1.0.0-rc.5",
     "react": "latest",
