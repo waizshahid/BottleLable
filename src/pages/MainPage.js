@@ -541,7 +541,12 @@ export default class MainPage extends Component {
                 <Button style={{position: "absolute", top: '30%', left:'0%', width: '10%', height: '70%'}} sty onMouseDown={() => { this.rotateBottle('left')}}><ArrowLeft style={{fontSize: '40'}}/></Button>
                 <Button style={{position: "absolute", top: '30%', left:'90%', width: '10%', height: '70%'}} onMouseDown={() => { this.rotateBottle('right')}}><ArrowRight style={{fontSize: '40'}}/></Button>
                 <div id="container">
+<<<<<<< HEAD
 
+=======
+                    <button onMouseDown={() => { this.rotateBottle('left')}}>Left</button>
+                    <button onMouseDown={() => { this.rotateBottle('right')}}>Right</button>
+>>>>>>> 6c85a94a0a8c03b6b0f7663c79321e3bcb3af3a6
                     <div id="frame">
                         <div class="strip" style={{transform: `rotateY(${this.state.previewRotation}deg)`}}>
                             
@@ -2025,10 +2030,19 @@ const PageStyler = styled.div`
 	-webkit-animation-play-state:paused}
 	  
 #frame {width: 33px;
+<<<<<<< HEAD
     transform: translate3d(256px, 785px, -700px)}
 .strip {-moz-transform-style: preserve-3d;
 	-webkit-transform-style: preserve-3d;
 }
+=======
+    transform: translate3d(250px, 780px, -700px)}
+
+.strip {-moz-transform-style: preserve-3d;
+	-webkit-transform-style: preserve-3d;
+}
+
+>>>>>>> 6c85a94a0a8c03b6b0f7663c79321e3bcb3af3a6
 .strip div {
 	position: absolute;
 	border-width: thin 0;
