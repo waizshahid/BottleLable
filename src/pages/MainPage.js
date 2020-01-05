@@ -41,18 +41,15 @@ import Releasecolor1 from '../backgrounds/releasecolor1.jpg'
 import Releasecolor2 from '../backgrounds/releasecolor2.jpg'
 import Artboost from '../backgrounds/Artboost.jpg'
 import Artboost2 from '../backgrounds/Artboost2.jpg'
-import Carlsberg from '../images/carlsberg-logo-white.png'
-import Eighteen from '../images/18.png'
+import Carlsberg from '../images/carlsberg-logo-white.svg'
+import Eighteen from '../images/18.svg'
 import Bottle from '../images/bottle3.png'
 import html2canvas from 'html2canvas';
 import ArrowRight from '@material-ui/icons/ArrowForwardIos';
 import ArrowLeft from '@material-ui/icons/ArrowBackIos';
+import '../fonts/carlsberg.ttf'
 
-
-
-
-
-export default class MainPage extends Component { 
+export default class MainPage extends Component {
     constructor (props) {
         super(props);
         this.state = {
@@ -172,6 +169,9 @@ export default class MainPage extends Component {
             patternHex:'',
             backgroundImage: '',
             customImage: '',
+            textTitleFontSize : '1.2vh',
+            textTitleHorizontalAllignment :'4',
+            textTitleColor : "#FFFFFF",
             images:[
                 {
                     name: "Custom",
@@ -267,19 +267,29 @@ export default class MainPage extends Component {
       renderBottleImage = () => {
           
       }
+
+      html2Canvas = () => {
+        html2canvas(document.querySelector("#fullLable"), {
+            scrollX: 0,
+            scrollY: 0,
+            allowTaint : true
+          }).then(canvas => {
+            console.log(canvas)
+            var data = canvas.toDataURL('../images/png', 0.9);
+            let src = encodeURI(data);
+            this.setState({
+                ...this.state,
+                fullImage: src,
+            });
+        });
+      }
       handleTabChange = (event, newValue) => {
           if(newValue==='1') {
-                html2canvas(document.querySelector("#fullLable")).then(canvas => {
-                    console.log(canvas)
-                    var data = canvas.toDataURL('../images/jpeg', 0.9);
-                    let src = encodeURI(data);
-                    document.body.appendChild(canvas)
-                    this.setState({
-                        ...this.state,
-                        tab : newValue,
-                        fullImage: src,
-                    });
-                });
+               this.html2Canvas();
+               this.setState({
+                ...this.state,
+                tab : newValue,
+               })
             }
             else
             this.setState({
@@ -308,6 +318,8 @@ export default class MainPage extends Component {
             patterns : obj,
             [name]: event.target.value,
             patternSelected
+        }, () => {
+            this.html2Canvas();
         })
         console.log(this.state.patterns)
         }
@@ -315,6 +327,8 @@ export default class MainPage extends Component {
             this.setState({
             ...this.state,
             [name]: event.target.value,
+            }, () => {
+                this.html2Canvas();
             });
         }
         if (name==="backgroundRadio" && event.target.value==="background") {
@@ -323,11 +337,19 @@ export default class MainPage extends Component {
                 labelColor : "#FFFFFF",
                 globalTextColor : "#000000",
                 craftedDescriptionColor: "#000000",
+            }, () => {
+                this.html2Canvas();
             })
         }
         if(name==="globalTextColor"){
             this.setState({
-                craftedDescriptionColor : event.target.value
+                craftedDescriptionColor : event.target.value,
+                beerNameColor : event.target.value,
+                brewerNameColor : event.target.value,
+                textTitleColor : event.target.value,
+                rightTextColor : event.target.value,
+                rightBottomTextColor : event.target.value,
+                
             }) }
         console.log(this.state.overlaySlider)
       };
@@ -348,6 +370,22 @@ export default class MainPage extends Component {
         this.setState({
             previewRotation: newRotation,
         })
+      }
+
+      bottleView = view => {
+          let newView;
+          if(view == 'left')
+           newView = 310 
+          
+          if(view == 'front') 
+          newView = 191
+          
+          if(view =='right')
+          newView = 95
+
+          this.setState({
+              previewRotation: newView
+          })
       }
 
       handleImageChange  = name => e =>{
@@ -405,10 +443,23 @@ export default class MainPage extends Component {
       handleRenderOnServer =() => {
           console.log(this.state.labelColor)
       }
+      randomizeColors =() => {
+        var min = 0;
+        var max = 9;
+        var rand1 =  parseInt(min + (Math.random() * (15-0)));
+        var rand2 =  parseInt(min + (Math.random() * (15-0)));
+        var rand3 =  parseInt(min + (Math.random() * (15-0)));
+        var rand4 =  parseInt(min + (Math.random() * (6-0)));
+        this.setState({
+            rightSideBackground : 'transparent',
+            labelColor : this.state.colors[rand1].hex,
+            backgroundColor: this.state.colors[rand2].hex,
+            patternColor: this.state.colors[rand3].hex,
+            patternSelected : this.state.patterns[rand4].svg
+        })
+      }
       
     render() {
-
-       
         const classes =this.props;
         const labelColor = this.state.labelColor;
    return (
@@ -432,7 +483,7 @@ export default class MainPage extends Component {
             <div id="fullLable" className="rectangle" style={{ backgroundColor : `${this.state.labelColor}` } }>
                 <div className="legend">
                     <div className ="bitterness">
-                        <p style={{position:'absolute', paddingLeft:"12px", top : '3px',fontWeight: "500",  fontSize : "12px",  color : `${this.state.globalTextColor}`}}>BITTERNESS</p>
+                        <p style={{position:'absolute', paddingLeft:"12px", top : '3px',fontWeight: "500",  fontSize : "1.5vh",  color : `${this.state.globalTextColor}`}}>BITTERNESS</p>
                         {this.state.legendBitterness>='1' && 
                         <p className="dot" style={{backgroundColor: `${this.state.globalTextColor}`}}></p>
                         }
@@ -448,7 +499,7 @@ export default class MainPage extends Component {
                         
                     </div>
                     <div className ="color">
-                    <p style={{position:'absolute', paddingLeft:"12px", top : '3px',fontWeight: "500",  fontSize : "12px",  color : `${this.state.globalTextColor}`}}>COLOR</p>
+                    <p style={{position:'absolute', paddingLeft:"12px", top : '3px',fontWeight: "500",  fontSize : "1.5vh",  color : `${this.state.globalTextColor}`}}>COLOR</p>
                         {this.state.legendColor>='1' && 
                         <p className="dot" style={{backgroundColor: `${this.state.globalTextColor}`}}></p>
                         }
@@ -460,7 +511,7 @@ export default class MainPage extends Component {
                         }
                     </div>
                     <div className ="strength">
-                        <p style={{position:'absolute', paddingLeft:"12px", top : '3px',fontWeight: "500",  fontSize : "12px",  color : `${this.state.globalTextColor}`}}>STRENGTH</p>
+                        <p style={{position:'absolute', paddingLeft:"12px", top : '3px',fontWeight: "500",  fontSize : "1.5vh",  color : `${this.state.globalTextColor}`}}>STRENGTH</p>
                         {this.state.legendStrength>='1' && 
                         <p className="dot" style={{backgroundColor: `${this.state.globalTextColor}`}}></p>
                         }
@@ -476,11 +527,11 @@ export default class MainPage extends Component {
                 <div className="pictureBackground" style={{backgroundColor: '#000',overflow:'hidden', width:'70%', height : '100%'}}>
                 <img src={this.state.backgroundImage} style={{position:"absolute",width: '100%', height: '100%', filter: `grayscale(${this.state.overlaySlider}%)`, marginTop:`${this.state.backgroundVerticalAllignment*4}px`, marginLeft:`${this.state.backgroundhorizontalAllignment*4}px`, transform: `scale(${this.state.backgroundZoom})`}}/>
                 <div className="picforeground"  style={{backgroundColor : `${this.state.labelColor}`}} >
-                    <p style={{position: 'absolute', wordWrap: 'break-word',lineHeight: '30px',paddingTop:`${this.state.beerNameVerticalAllignment}px`,margin: '10px',width:'90%', textTransform:'uppercase', textAlign: 'center',fontWeight: '600', fontSize : `${this.state.beerNameFontSize}px`,  color : `${this.state.beerNameColor}`}}>{this.state.beerNameTitle}</p>
+                    <p style={{position: 'absolute', wordWrap: 'break-word',lineHeight: '20%',paddingTop:`${this.state.beerNameVerticalAllignment}px`,margin: '10%',width:'90%', textTransform:'uppercase', textAlign: 'center',fontWeight: '600', fontSize : `${this.state.beerNameFontSize/50}vh`,  color : `${this.state.beerNameColor}`}}>{this.state.beerNameTitle}</p>
 
                     <p style={{position: 'absolute',width: '100%',textAlign:'center' ,paddingTop: '150px', textTransform:'uppercase', textAlign: 'center',fontWeight: '600', fontSize : "15px",  color : `${this.state.craftedDescriptionColor}`}}>{this.state.craftedDescriptionText}*</p>
 
-                    <p style={{position: 'absolute',width:'90%',margin:'10px',wordWrap: 'break-word',lineHeight: '20px',paddingTop:`${(parseInt(this.state.brewerNameVerticalAllignment)+parseInt(130)).toString()}px`, textAlign: 'center',fontWeight: 'lighter', fontSize : `${this.state.brewerNameFontSize}px`,  color : `${this.state.brewerNameColor}`}}>{this.state.brewerNameTitle}</p>
+                    <p style={{position: 'absolute',width:'90%',margin:'10%',wordWrap: 'break-word',lineHeight: '20px',paddingTop:`${(parseInt(this.state.brewerNameVerticalAllignment)+parseInt(130)).toString()}px`, textAlign: 'center',fontWeight: 'lighter', fontSize : `${this.state.brewerNameFontSize}px`,  color : `${this.state.brewerNameColor}`}}>{this.state.brewerNameTitle}</p>
                 </div>
                 </div>
                 :
@@ -496,7 +547,7 @@ export default class MainPage extends Component {
                 
                     </div>
                     }
-                        <p style={{position: 'absolute',width: '100%',textAlign:'center' ,paddingTop: '150px', textTransform:'uppercase', textAlign: 'center',fontWeight: '600', fontSize : "15px",  color : `${this.state.craftedDescriptionColor}`}}>{this.state.craftedDescriptionText}*</p>
+                        <p style={{position: 'absolute',width: '100%',textAlign:'center' ,paddingTop: '70%', textTransform:'uppercase', textAlign: 'center',fontWeight: '600', fontSize : "1.9vh",  color : `${this.state.craftedDescriptionColor}`}}>{this.state.craftedDescriptionText}*</p>
 
                     {this.state.brewerName==="text" ? 
                     <div>
@@ -512,20 +563,24 @@ export default class MainPage extends Component {
                 </div>
                 }
                 <div className = "secondaryBackground" style={{ backgroundColor : `${this.state.secondaryBackgroundColor}`}}>
-                    <p style={{position:'absolute',padding:'0px', margin:'0px', marginLeft: '10px', top : '2px',  fontSize : "10px",  color : `${this.state.secondaryTextColor}`}}>CRAFT AND DESIGN YOUR OWN LABEL BY <b>WAIZ SHAHID</b></p>
+                    <p style={{position:'absolute',padding:'0px', margin:'0px', marginLeft: '5%', top : '10%',  fontSize : "1.2vh",  color : `${this.state.secondaryTextColor}`}}>CRAFT AND DESIGN YOUR OWN LABEL BY <b>WAIZ SHAHID</b></p>
                 </div>
                 <div className="craftedByBar">
-                <p style={{position:'absolute',padding:'0px', margin:'0px', marginLeft: '8px',fontWeight: "700" ,  fontSize : "10px",  color : `${this.state.globalTextColor}`}}>#CRAFTEDBY</p>
+                <p style={{position:'absolute',padding:'0px', margin:'0px', marginLeft: '5%',fontWeight: "700" ,  fontSize : "1.2vh",  color : `${this.state.globalTextColor}`}}>#CRAFTEDBY</p>
                 </div>
                 <div className="barCode"  style={{ backgroundColor : "#000"}}>
                     <img src={Bar1} style={{width: '100%', height: '100%'}}/>
                 </div>
                 <div className="brewed"  style={{ transform: 'rotate(-90deg)'}}>
-                    <img src={Carlsberg} style={{width: '100%', height: '95%'}}/>
+                    <p style={{fontFamily: 'Carlsberg',width: '100%', height: '50%', fontSize: '2.5vh', color: `${this.state.globalTextColor}`}}> Carlsberg</p>
                 </div>
-                <p style={{position:'absolute',top: '86%',left:'21%',transform: 'rotate(-90deg)',padding:'0px', color : `${this.state.globalTextColor}` , margin:'0px', marginLeft: '8px',fontWeight: "800" ,  fontSize : "11px"}}>BREWED BY</p>
-                <div className="eighteen"  style={{ transform: 'rotate(-90deg)'}}>
-                    <img src={Eighteen} style={{color : `${this.state.globalTextColor}`,width: '100%', height: '100%'}}/>
+                <p style={{position:'absolute',top: '86%',left:'19.5%',transform: 'rotate(-90deg)',padding:'0px', color : `${this.state.globalTextColor}` , margin:'0px', marginLeft: '2%',fontWeight: "800" ,  fontSize : "1.4vh"}}>BREWED BY</p>
+                <p style={{position:'absolute',top: '75%',left:`${this.state.textTitleHorizontalAllignment}%`,transform: 'rotate(-90deg)',width:'20%',padding:'0px', color : `${this.state.textTitleColor}` , margin:'0px',fontWeight: "400" ,  fontSize : `${this.state.textTitleFontSize/20}vh`}}>{this.state.textTitleIngredients}</p>
+                <div className="eighteen" style={{ transform: 'rotate(-90deg)'}}>
+                
+                <p style={{position: "absolute", width: '100%', height: '45%', backgroundColor: `${this.state.globalTextColor}`, borderRadius: '50%'}}></p>
+                <p style={{position: "absolute", width: '80%', height: '35%', left: '8%', top: '4%',backgroundColor:  `${this.state.labelColor}`, borderRadius: '50%'}}></p>
+                <p style={{position: "absolute", width: '80%', height: '35%',top:'10%', left: '10%' , color: `${this.state.globalTextColor}`, fontSize: '85%'}}>18+</p>
                 </div>
                 <div className="rightSideBackground" style={{opacity:`${this.state.rightSideBackground==="transparent"? 0:1}`, backgroundColor : `${this.state.rightSideBackgroundColor}`}}>
                 <p style={{position: 'absolute', wordWrap: 'break-word',lineHeight: '30px',paddingTop:`${this.state.rightTextVerticalAllighnment*2.6}px`,margin: '10px',width:'90%', textTransform:'uppercase', textAlign: 'left',fontWeight: '600', fontSize : `${this.state.rightTextFontSize}px`,  color : `${this.state.rightTextColor}`}}>{this.state.rightTextTitle}</p>
@@ -538,15 +593,24 @@ export default class MainPage extends Component {
             :
             <div style={{position: "relative", backgroundColor: '#eeeeee', width: '100%', height: '700px'}}>
                 <img src={Bottle} style={{position: "absolute", top: '30%', left:'40%', width: '20%', height: '70%'}}></img>
+                <Typography style={{position: "absolute", top : '5%', left: '4%'}} variant="subtitle2">
+                        View:
+                    </Typography>
+                <Button size="small" style={{position: "absolute", top : '8%', left: '1.8%', fontWeight:'350', fontSize: '1.68vh'}} onClick={ () => {this.bottleView('left')}}>Left</Button>
+                <Button size="small" style={{position: "absolute", top : '8%', left: '10%', fontWeight:'350', fontSize: '1.68vh'}} onClick={ () => {this.bottleView('front')}}>Front</Button>
+                <Button size="small" style={{position: "absolute", top : '8%', left: '18%', fontWeight:'350', fontSize: '1.68vh'}} onClick={ () => {this.bottleView('right')}}>Right</Button>
+                <Typography style={{position: "absolute", top : '5%', right: '4%'}} variant="subtitle2">
+                        Download:
+                    </Typography>
+                <Button size="small" style={{position: "absolute", top : '8%', right: '24%', fontWeight:'350', fontSize: '1.68vh'}}>Current View</Button>
+                <Button size="small" style={{position: "absolute", top : '8%', right: '3%', fontWeight:'350', fontSize: '1.68vh'}}>Optimized Front</Button>
+                <Typography style={{position: "absolute", top : '13%', left: '4%'}} variant="subtitle2">
+                        Quality:
+                    </Typography>
+                <Button size="small" style={{position: "absolute", top : '16.5%', left: '3.4%', fontWeight:'350', fontSize: '1.68vh'}}>Max Quality</Button>
                 <Button style={{position: "absolute", top: '30%', left:'0%', width: '10%', height: '70%'}} sty onMouseDown={() => { this.rotateBottle('left')}}><ArrowLeft style={{fontSize: '40'}}/></Button>
                 <Button style={{position: "absolute", top: '30%', left:'90%', width: '10%', height: '70%'}} onMouseDown={() => { this.rotateBottle('right')}}><ArrowRight style={{fontSize: '40'}}/></Button>
                 <div id="container">
-<<<<<<< HEAD
-
-=======
-                    <button onMouseDown={() => { this.rotateBottle('left')}}>Left</button>
-                    <button onMouseDown={() => { this.rotateBottle('right')}}>Right</button>
->>>>>>> 6c85a94a0a8c03b6b0f7663c79321e3bcb3af3a6
                     <div id="frame">
                         <div class="strip" style={{transform: `rotateY(${this.state.previewRotation}deg)`}}>
                             
@@ -716,7 +780,8 @@ export default class MainPage extends Component {
                     <Divider  style={{marginLeft:'2px', paddingLeft:"2px"}} orientation="vertical" />
                 </Grid>
                 <Grid xs={5} style={{marginLeft:"20px"}}>
-                    <Typography style={{paddingTop:'15px'}}  variant="subtitle2" gutterBottom>
+                <Button style={{position:'absolute',right:'4%'}} onClick={this.randomizeColors} size="small" variant="contained">RANDOMIZE COLORS</Button>
+                    <Typography style={{paddingTop:'25px'}}  variant="subtitle2" gutterBottom>
                         Background
                     </Typography>
                     
@@ -1522,7 +1587,8 @@ export default class MainPage extends Component {
                 multiline
                 rows="4"
                 variant="outlined"
-                value="vand, bygmalt, byg, hvedemalt, humle"
+                value={this.state.textTitleIngredients}
+                onChange={this.handleChange('textTitleIngredients')}
                 />
                 </Grid>
                 <Grid  xs={2} item> 
@@ -1581,7 +1647,7 @@ export default class MainPage extends Component {
                             <Slider
                             name="textTitleHorizontalAllignment" value={this.state.textTitleHorizontalAllignment} onChange={this.handleSliderChange("textTitleHorizontalAllignment")} aria-labelledby="textTitleHorizontalAllignment"
                             min={0}
-                            max={100} />
+                            max={50} />
                             </Grid>
                             <Grid xs={4} item>
                             <Input
@@ -1910,6 +1976,7 @@ const PageStyler = styled.div`
   }
   .rectangle {
       position: relative;
+      overflow: hidden;
       height: 41vh;
       width:100%;
   }
@@ -1941,17 +2008,17 @@ const PageStyler = styled.div`
   }
   .brewed {
     position: absolute;
-    top: 63%;
-    left: 150px;
-    height: 7%;
-    width: 9%;
+    top: 53%;
+    left: 17%;
+    height: 16%;
+    width: 15%;
   }
   .eighteen {
     position: absolute;
-    top: 44%;
-    left: 26%;
-    height: 5%;
-    width: 2.5%;
+    top: 38%;
+    left: 24.5%;
+    height: 20%;
+    width: 4%;
   }
   .background {
     position: relative;
@@ -1999,10 +2066,10 @@ const PageStyler = styled.div`
     margin-top:6%;
   }
   .dot {
-    margin-top: 17px;
-    height: 10px;
-    width: 10px;
-    margin-left: 95px;
+    margin-top: 2.2vh;
+    height: 1.3vh;
+    width: 1.3vh;
+    margin-left: 12vh;
     border-radius: 50%;
     display: inline-block;
     
@@ -2021,7 +2088,7 @@ const PageStyler = styled.div`
 	text-align:center;
 	margin:0 auto;
 	top:450px;
-	width:550px;
+	width:50px;
 	-moz-perspective: 900px;	  
 	-webkit-perspective: 900}
 	
@@ -2029,20 +2096,13 @@ const PageStyler = styled.div`
 	-moz-animation-play-state:paused;
 	-webkit-animation-play-state:paused}
 	  
-#frame {width: 33px;
-<<<<<<< HEAD
-    transform: translate3d(256px, 785px, -700px)}
-.strip {-moz-transform-style: preserve-3d;
-	-webkit-transform-style: preserve-3d;
-}
-=======
-    transform: translate3d(250px, 780px, -700px)}
+#frame {width: 34px;
+    transform: translate3d(8px, 790px, -700px)}
 
 .strip {-moz-transform-style: preserve-3d;
 	-webkit-transform-style: preserve-3d;
 }
 
->>>>>>> 6c85a94a0a8c03b6b0f7663c79321e3bcb3af3a6
 .strip div {
 	position: absolute;
 	border-width: thin 0;
@@ -2150,6 +2210,11 @@ const PageStyler = styled.div`
 	
 @-webkit-keyframes spin {
 	from { -webkit-transform: rotateY(0)}
-	to   { -webkit-transform: rotateY(-360deg)}}
+    to   { -webkit-transform: rotateY(-360deg)}}
+    
+@font-face {
+    font-family: 'Carlsberg';
+    src: local('Carlsberg'), url(../fonts/carlsberg.ttf) format('truetype');
+    }
   
 `
