@@ -54,7 +54,7 @@ export default class MainPage extends Component {
         super(props);
         this.state = {
             patterns : [
-                
+
                 {
                     name: "None",
                     svg : '22222222222222222222222222222222222222222222222222222222222222222222'
@@ -265,7 +265,7 @@ export default class MainPage extends Component {
         );
       }
       renderBottleImage = () => {
-          
+
       }
 
       html2Canvas = () => {
@@ -349,7 +349,7 @@ export default class MainPage extends Component {
                 textTitleColor : event.target.value,
                 rightTextColor : event.target.value,
                 rightBottomTextColor : event.target.value,
-                
+
             }) }
         console.log(this.state.overlaySlider)
       };
@@ -375,11 +375,11 @@ export default class MainPage extends Component {
       bottleView = view => {
           let newView;
           if(view == 'left')
-           newView = 310 
-          
-          if(view == 'front') 
+           newView = 310
+
+          if(view == 'front')
           newView = 191
-          
+
           if(view =='right')
           newView = 95
 
@@ -392,7 +392,7 @@ export default class MainPage extends Component {
 
           let reader = new FileReader();
           let file = e.target.files[0];
-      
+
           reader.onloadend = () => {
               let {images} = this.state;
               images[0].src = reader.result;
@@ -402,35 +402,35 @@ export default class MainPage extends Component {
               images,
             });
           }
-      
+
           reader.readAsDataURL(file)
         }
         handleBeerLogo  = name => e =>{
 
             let reader = new FileReader();
             let file = e.target.files[0];
-        
+
             reader.onloadend = () => {
               this.setState({
                 file: file,
                 beerLogoImage: reader.result,
               });
             }
-        
+
             reader.readAsDataURL(file)
           }
           handleBrewerLogo  = name => e =>{
 
             let reader = new FileReader();
             let file = e.target.files[0];
-        
+
             reader.onloadend = () => {
               this.setState({
                 file: file,
                 brewerNameLogoImage: reader.result,
               });
             }
-        
+
             reader.readAsDataURL(file)
           }
       handleSliderChange = name => (event, newValue) => {
@@ -439,7 +439,7 @@ export default class MainPage extends Component {
             [name]: newValue
           });
       };
-    
+
       handleRenderOnServer =() => {
           console.log(this.state.labelColor)
       }
@@ -458,12 +458,12 @@ export default class MainPage extends Component {
             patternSelected : this.state.patterns[rand4].svg
         })
       }
-      
+
     render() {
         const classes =this.props;
         const labelColor = this.state.labelColor;
    return (
-       
+
 <PageStyler>
     <Grid container component="main" className="root full-page">
       <Grid  component={Paper} className="forty" square>
@@ -479,94 +479,100 @@ export default class MainPage extends Component {
                 <Tab value="0" label="Edit View"  />
                 <Tab value="1" label="Preview Bottle" />
             </Tabs>
-            {this.state.tab === "0"? 
-            <div id="fullLable" className="rectangle" style={{ backgroundColor : `${this.state.labelColor}` } }>
+            <div id="fullLable" className="rectangle" style={
+
+                {
+                    position: "absolute",
+                    backgroundColor : `${this.state.labelColor}`,
+                    display:`${this.state.tab === "0" ? "block" : "block"}`
+
+                } }>
                 <div className="legend">
                     <div className ="bitterness">
                         <p style={{position:'absolute', paddingLeft:"12px", top : '3px',fontWeight: "500",  fontSize : "1.5vh",  color : `${this.state.globalTextColor}`}}>BITTERNESS</p>
-                        {this.state.legendBitterness>='1' && 
+                        {this.state.legendBitterness>='1' &&
                         <p className="dot" style={{backgroundColor: `${this.state.globalTextColor}`}}></p>
                         }
-                        {this.state.legendBitterness>='2' && 
+                        {this.state.legendBitterness>='2' &&
                         <p className="dot" style={{marginLeft: "6px",backgroundColor: `${this.state.globalTextColor}`}}></p>
                         }
-                        {this.state.legendBitterness>='3' && 
+                        {this.state.legendBitterness>='3' &&
                         <p className="dot" style={{marginLeft: "6px",backgroundColor: `${this.state.globalTextColor}`}}></p>
-                        }    
-                        {this.state.legendBitterness>='4' && 
+                        }
+                        {this.state.legendBitterness>='4' &&
                         <p className="dot" style={{marginLeft: "6px",backgroundColor: `${this.state.globalTextColor}`}}></p>
-                        }        
-                        
+                        }
+
                     </div>
                     <div className ="color">
-                    <p style={{position:'absolute', paddingLeft:"12px", top : '3px',fontWeight: "500",  fontSize : "1.5vh",  color : `${this.state.globalTextColor}`}}>COLOR</p>
-                        {this.state.legendColor>='1' && 
+                        <p style={{position:'absolute', paddingLeft:"12px", top : '3px',fontWeight: "500",  fontSize : "1.5vh",  color : `${this.state.globalTextColor}`}}>COLOR</p>
+                        {this.state.legendColor>='1' &&
                         <p className="dot" style={{backgroundColor: `${this.state.globalTextColor}`}}></p>
                         }
-                        {this.state.legendColor>='2' && 
+                        {this.state.legendColor>='2' &&
                         <p className="dot" style={{marginLeft: "6px",backgroundColor: `${this.state.globalTextColor}`}}></p>
                         }
-                        {this.state.legendColor>='3' && 
+                        {this.state.legendColor>='3' &&
                         <p className="dot" style={{marginLeft: "6px",backgroundColor: `${this.state.globalTextColor}`}}></p>
                         }
                     </div>
                     <div className ="strength">
                         <p style={{position:'absolute', paddingLeft:"12px", top : '3px',fontWeight: "500",  fontSize : "1.5vh",  color : `${this.state.globalTextColor}`}}>STRENGTH</p>
-                        {this.state.legendStrength>='1' && 
+                        {this.state.legendStrength>='1' &&
                         <p className="dot" style={{backgroundColor: `${this.state.globalTextColor}`}}></p>
                         }
-                        {this.state.legendStrength>='2' && 
+                        {this.state.legendStrength>='2' &&
                         <p className="dot" style={{marginLeft: "6px",backgroundColor: `${this.state.globalTextColor}`}}></p>
                         }
-                        {this.state.legendStrength>='3' && 
+                        {this.state.legendStrength>='3' &&
                         <p className="dot" style={{marginLeft: "6px",backgroundColor: `${this.state.globalTextColor}`}}></p>
                         }
                     </div>
                 </div>
-                {this.state.backgroundRadio === "background"? 
-                <div className="pictureBackground" style={{backgroundColor: '#000',overflow:'hidden', width:'70%', height : '100%'}}>
-                <img src={this.state.backgroundImage} style={{position:"absolute",width: '100%', height: '100%', filter: `grayscale(${this.state.overlaySlider}%)`, marginTop:`${this.state.backgroundVerticalAllignment*4}px`, marginLeft:`${this.state.backgroundhorizontalAllignment*4}px`, transform: `scale(${this.state.backgroundZoom})`}}/>
-                <div className="picforeground"  style={{backgroundColor : `${this.state.labelColor}`}} >
-                    <p style={{position: 'absolute', wordWrap: 'break-word',lineHeight: '20%',paddingTop:`${this.state.beerNameVerticalAllignment}px`,margin: '10%',width:'90%', textTransform:'uppercase', textAlign: 'center',fontWeight: '600', fontSize : `${this.state.beerNameFontSize/50}vh`,  color : `${this.state.beerNameColor}`}}>{this.state.beerNameTitle}</p>
+                {this.state.backgroundRadio === "background"?
+                    <div className="pictureBackground" style={{backgroundColor: '#000',overflow:'hidden', width:'70%', height : '100%'}}>
+                        <img src={this.state.backgroundImage} style={{position:"absolute",width: '100%', height: '100%', filter: `grayscale(${this.state.overlaySlider}%)`, marginTop:`${this.state.backgroundVerticalAllignment*4}px`, marginLeft:`${this.state.backgroundhorizontalAllignment*4}px`, transform: `scale(${this.state.backgroundZoom})`}}/>
+                        <div className="picforeground"  style={{backgroundColor : `${this.state.labelColor}`}} >
+                            <p style={{position: 'absolute', wordWrap: 'break-word',lineHeight: '20%',paddingTop:`${this.state.beerNameVerticalAllignment}px`,margin: '10%',width:'90%', textTransform:'uppercase', textAlign: 'center',fontWeight: '600', fontSize : `${this.state.beerNameFontSize/50}vh`,  color : `${this.state.beerNameColor}`}}>{this.state.beerNameTitle}</p>
 
-                    <p style={{position: 'absolute',width: '100%',textAlign:'center' ,paddingTop: '150px', textTransform:'uppercase', textAlign: 'center',fontWeight: '600', fontSize : "15px",  color : `${this.state.craftedDescriptionColor}`}}>{this.state.craftedDescriptionText}*</p>
+                            <p style={{position: 'absolute',width: '100%',paddingTop: '150px', textTransform:'uppercase', textAlign: 'center',fontWeight: '600', fontSize : "15px",  color : `${this.state.craftedDescriptionColor}`}}>{this.state.craftedDescriptionText}*</p>
 
-                    <p style={{position: 'absolute',width:'90%',margin:'10%',wordWrap: 'break-word',lineHeight: '20px',paddingTop:`${(parseInt(this.state.brewerNameVerticalAllignment)+parseInt(130)).toString()}px`, textAlign: 'center',fontWeight: 'lighter', fontSize : `${this.state.brewerNameFontSize}px`,  color : `${this.state.brewerNameColor}`}}>{this.state.brewerNameTitle}</p>
-                </div>
-                </div>
-                :
-            <div className="background" style={{ backgroundColor : `${this.state.backgroundColor}`, backgroundImage :`url(\"${this.state.patternSelected}\")`}} >
-                    <div className="foreground"  style={{backgroundColor : `${this.state.labelColor}`}} >
-                    {this.state.beerName==="text" ? 
-                    <div>
-                        <p style={{position: 'absolute', wordWrap: 'break-word',lineHeight: '30px',paddingTop:`${this.state.beerNameVerticalAllignment}px`,margin: '10px',width:'90%', textTransform:'uppercase', textAlign: 'center',fontWeight: '600', fontSize : `${this.state.beerNameFontSize}px`,  color : `${this.state.beerNameColor}`}}>{this.state.beerNameTitle}</p>
+                            <p style={{position: 'absolute',width:'90%',margin:'10%',wordWrap: 'break-word',lineHeight: '20px',paddingTop:`${(parseInt(this.state.brewerNameVerticalAllignment)+parseInt(130)).toString()}px`, textAlign: 'center',fontWeight: 'lighter', fontSize : `${this.state.brewerNameFontSize}px`,  color : `${this.state.brewerNameColor}`}}>{this.state.brewerNameTitle}</p>
+                        </div>
                     </div>
                     :
-                    <div>
-                            <img src={this.state.beerLogoImage} style={{position:"absolute",width: '60%', left:'20%' , top: '20%' ,height: '30%', marginTop:`${this.state.beerNameLogoVerticalAllignment*4}px`, transform: `scale(${this.state.beerNameLogoSize})`}}/>
-                
-                    </div>
-                    }
-                        <p style={{position: 'absolute',width: '100%',textAlign:'center' ,paddingTop: '70%', textTransform:'uppercase', textAlign: 'center',fontWeight: '600', fontSize : "1.9vh",  color : `${this.state.craftedDescriptionColor}`}}>{this.state.craftedDescriptionText}*</p>
+                    <div className="background" style={{ backgroundColor : `${this.state.backgroundColor}`, backgroundImage :`url(\"${this.state.patternSelected}\")`}} >
+                        <div className="foreground"  style={{backgroundColor : `${this.state.labelColor}`}} >
+                            {this.state.beerName==="text" ?
+                                <div>
+                                    <p style={{position: 'absolute', wordWrap: 'break-word',lineHeight: '30px',paddingTop:`${this.state.beerNameVerticalAllignment}px`,margin: '10px',width:'90%', textTransform:'uppercase', textAlign: 'center',fontWeight: '600', fontSize : `${this.state.beerNameFontSize}px`,  color : `${this.state.beerNameColor}`}}>{this.state.beerNameTitle}</p>
+                                </div>
+                                :
+                                <div>
+                                    <img src={this.state.beerLogoImage} style={{position:"absolute",width: '60%', left:'20%' , top: '20%' ,height: '30%', marginTop:`${this.state.beerNameLogoVerticalAllignment*4}px`, transform: `scale(${this.state.beerNameLogoSize})`}}/>
 
-                    {this.state.brewerName==="text" ? 
-                    <div>
-                        <p style={{position: 'absolute',width:'90%',margin:'10px',wordWrap: 'break-word',lineHeight: '20px',paddingTop:`${(parseInt(this.state.brewerNameVerticalAllignment)+parseInt(130)).toString()}px`, textAlign: 'center',fontWeight: 'lighter', fontSize : `${this.state.brewerNameFontSize}px`,  color : `${this.state.brewerNameColor}`}}>{this.state.brewerNameTitle}</p>
+                                </div>
+                            }
+                            <p style={{position: 'absolute',width: '100%' ,paddingTop: '70%', textTransform:'uppercase', textAlign: 'center',fontWeight: '600', fontSize : "1.9vh",  color : `${this.state.craftedDescriptionColor}`}}>{this.state.craftedDescriptionText}*</p>
+
+                            {this.state.brewerName==="text" ?
+                                <div>
+                                    <p style={{position: 'absolute',width:'90%',margin:'10px',wordWrap: 'break-word',lineHeight: '20px',paddingTop:`${(parseInt(this.state.brewerNameVerticalAllignment)+parseInt(130)).toString()}px`, textAlign: 'center',fontWeight: 'lighter', fontSize : `${this.state.brewerNameFontSize}px`,  color : `${this.state.brewerNameColor}`}}>{this.state.brewerNameTitle}</p>
+                                </div>
+                                :
+                                <div>
+                                    <img src={this.state.brewerNameLogoImage} style={{position:"absolute",width: '50%', left:'25%' , top: '72%' ,height: '20%', marginTop:`${this.state.brewerNameLogoVerticalAllignment*4}px`, transform: `scale(${this.state.brewerNameLogoSize})`}}/>
+
+                                </div>
+                            }
+                        </div>
                     </div>
-                    :
-                    <div>
-                        <img src={this.state.brewerNameLogoImage} style={{position:"absolute",width: '50%', left:'25%' , top: '72%' ,height: '20%', marginTop:`${this.state.brewerNameLogoVerticalAllignment*4}px`, transform: `scale(${this.state.brewerNameLogoSize})`}}/>
-        
-                    </div>
-                    }   
-                    </div>
-                </div>
                 }
                 <div className = "secondaryBackground" style={{ backgroundColor : `${this.state.secondaryBackgroundColor}`}}>
                     <p style={{position:'absolute',padding:'0px', margin:'0px', marginLeft: '5%', top : '10%',  fontSize : "1.2vh",  color : `${this.state.secondaryTextColor}`}}>CRAFT AND DESIGN YOUR OWN LABEL BY <b>WAIZ SHAHID</b></p>
                 </div>
                 <div className="craftedByBar">
-                <p style={{position:'absolute',padding:'0px', margin:'0px', marginLeft: '5%',fontWeight: "700" ,  fontSize : "1.2vh",  color : `${this.state.globalTextColor}`}}>#CRAFTEDBY</p>
+                    <p style={{position:'absolute',padding:'0px', margin:'0px', marginLeft: '5%',fontWeight: "700" ,  fontSize : "1.2vh",  color : `${this.state.globalTextColor}`}}>#CRAFTEDBY</p>
                 </div>
                 <div className="barCode"  style={{ backgroundColor : "#000"}}>
                     <img src={Bar1} style={{width: '100%', height: '100%'}}/>
@@ -577,75 +583,106 @@ export default class MainPage extends Component {
                 <p style={{position:'absolute',top: '86%',left:'19.5%',transform: 'rotate(-90deg)',padding:'0px', color : `${this.state.globalTextColor}` , margin:'0px', marginLeft: '2%',fontWeight: "800" ,  fontSize : "1.4vh"}}>BREWED BY</p>
                 <p style={{position:'absolute',top: '75%',left:`${this.state.textTitleHorizontalAllignment}%`,transform: 'rotate(-90deg)',width:'20%',padding:'0px', color : `${this.state.textTitleColor}` , margin:'0px',fontWeight: "400" ,  fontSize : `${this.state.textTitleFontSize/20}vh`}}>{this.state.textTitleIngredients}</p>
                 <div className="eighteen" style={{ transform: 'rotate(-90deg)'}}>
-                
-                <p style={{position: "absolute", width: '100%', height: '45%', backgroundColor: `${this.state.globalTextColor}`, borderRadius: '50%'}}></p>
-                <p style={{position: "absolute", width: '80%', height: '35%', left: '8%', top: '4%',backgroundColor:  `${this.state.labelColor}`, borderRadius: '50%'}}></p>
-                <p style={{position: "absolute", width: '80%', height: '35%',top:'10%', left: '10%' , color: `${this.state.globalTextColor}`, fontSize: '85%'}}>18+</p>
+
+                    <p style={{position: "absolute", width: '100%', height: '45%', backgroundColor: `${this.state.globalTextColor}`, borderRadius: '50%'}}></p>
+                    <p style={{position: "absolute", width: '80%', height: '35%', left: '8%', top: '4%',backgroundColor:  `${this.state.labelColor}`, borderRadius: '50%'}}></p>
+                    <p style={{position: "absolute", width: '80%', height: '35%',top:'10%', left: '10%' , color: `${this.state.globalTextColor}`, fontSize: '85%'}}>18+</p>
                 </div>
                 <div className="rightSideBackground" style={{opacity:`${this.state.rightSideBackground==="transparent"? 0:1}`, backgroundColor : `${this.state.rightSideBackgroundColor}`}}>
-                <p style={{position: 'absolute', wordWrap: 'break-word',lineHeight: '30px',paddingTop:`${this.state.rightTextVerticalAllighnment*2.6}px`,margin: '10px',width:'90%', textTransform:'uppercase', textAlign: 'left',fontWeight: '600', fontSize : `${this.state.rightTextFontSize}px`,  color : `${this.state.rightTextColor}`}}>{this.state.rightTextTitle}</p>
-                {this.state.rightTextRadio==="2"? 
-                    <p style={{position: 'absolute', wordWrap: 'break-word',lineHeight: '30px',paddingTop:`${parseInt(this.state.rightBottomVerticalAllignment)+100}px`,margin: '10px',width:'90%', textTransform:'uppercase', textAlign: 'left',fontWeight: '600', fontSize : `${this.state.rightBottomTextSize}px`,  color : `${this.state.rightBottomTextColor}`}}>{this.state.rightBottomTextTitle}</p>
-                :null}
+                    <p style={{position: 'absolute', wordWrap: 'break-word',lineHeight: '30px',paddingTop:`${this.state.rightTextVerticalAllighnment*2.6}px`,margin: '10px',width:'90%', textTransform:'uppercase', textAlign: 'left',fontWeight: '600', fontSize : `${this.state.rightTextFontSize}px`,  color : `${this.state.rightTextColor}`}}>{this.state.rightTextTitle}</p>
+                    {this.state.rightTextRadio==="2"?
+                        <p style={{position: 'absolute', wordWrap: 'break-word',lineHeight: '30px',paddingTop:`${parseInt(this.state.rightBottomVerticalAllignment)+100}px`,margin: '10px',width:'90%', textTransform:'uppercase', textAlign: 'left',fontWeight: '600', fontSize : `${this.state.rightBottomTextSize}px`,  color : `${this.state.rightBottomTextColor}`}}>{this.state.rightBottomTextTitle}</p>
+                        :null}
                 </div>
             </div>
-            
-            :
-            <div style={{position: "relative", backgroundColor: '#eeeeee', width: '100%', height: '700px'}}>
-                <img src={Bottle} style={{position: "absolute", top: '30%', left:'40%', width: '20%', height: '70%'}}></img>
-                <Typography style={{position: "absolute", top : '5%', left: '4%'}} variant="subtitle2">
-                        View:
-                    </Typography>
-                <Button size="small" style={{position: "absolute", top : '8%', left: '1.8%', fontWeight:'350', fontSize: '1.68vh'}} onClick={ () => {this.bottleView('left')}}>Left</Button>
-                <Button size="small" style={{position: "absolute", top : '8%', left: '10%', fontWeight:'350', fontSize: '1.68vh'}} onClick={ () => {this.bottleView('front')}}>Front</Button>
-                <Button size="small" style={{position: "absolute", top : '8%', left: '18%', fontWeight:'350', fontSize: '1.68vh'}} onClick={ () => {this.bottleView('right')}}>Right</Button>
-                <Typography style={{position: "absolute", top : '5%', right: '4%'}} variant="subtitle2">
-                        Download:
-                    </Typography>
-                <Button size="small" style={{position: "absolute", top : '8%', right: '24%', fontWeight:'350', fontSize: '1.68vh'}}>Current View</Button>
-                <Button size="small" style={{position: "absolute", top : '8%', right: '3%', fontWeight:'350', fontSize: '1.68vh'}}>Optimized Front</Button>
-                <Typography style={{position: "absolute", top : '13%', left: '4%'}} variant="subtitle2">
-                        Quality:
-                    </Typography>
-                <Button size="small" style={{position: "absolute", top : '16.5%', left: '3.4%', fontWeight:'350', fontSize: '1.68vh'}}>Max Quality</Button>
-                <Button style={{position: "absolute", top: '30%', left:'0%', width: '10%', height: '70%'}} sty onMouseDown={() => { this.rotateBottle('left')}}><ArrowLeft style={{fontSize: '40'}}/></Button>
-                <Button style={{position: "absolute", top: '30%', left:'90%', width: '10%', height: '70%'}} onMouseDown={() => { this.rotateBottle('right')}}><ArrowRight style={{fontSize: '40'}}/></Button>
+            <div style={{
+                position: "absolute",
+                backgroundColor: '#eeeeee',
+                width: '100%',
+                height: '700px',
+                display: `${this.state.tab === "0" ? 'none' : 'block'}`
+            }}>
+                <img src={Bottle}
+                     style={{position: "absolute", top: '30%', left: '40%', width: '20%', height: '70%'}}></img>
+                <Typography style={{position: "absolute", top: '5%', left: '4%'}} variant="subtitle2">
+                    View:
+                </Typography>
+                <Button size="small"
+                        style={{position: "absolute", top: '8%', left: '1.8%', fontWeight: '350', fontSize: '1.68vh'}}
+                        onClick={() => {
+                            this.bottleView('left')
+                        }}>Left</Button>
+                <Button size="small"
+                        style={{position: "absolute", top: '8%', left: '10%', fontWeight: '350', fontSize: '1.68vh'}}
+                        onClick={() => {
+                            this.bottleView('front')
+                        }}>Front</Button>
+                <Button size="small"
+                        style={{position: "absolute", top: '8%', left: '18%', fontWeight: '350', fontSize: '1.68vh'}}
+                        onClick={() => {
+                            this.bottleView('right')
+                        }}>Right</Button>
+                <Typography style={{position: "absolute", top: '5%', right: '4%'}} variant="subtitle2">
+                    Download:
+                </Typography>
+                <Button size="small"
+                        style={{position: "absolute", top: '8%', right: '24%', fontWeight: '350', fontSize: '1.68vh'}}>Current
+                    View</Button>
+                <Button size="small"
+                        style={{position: "absolute", top: '8%', right: '3%', fontWeight: '350', fontSize: '1.68vh'}}>Optimized
+                    Front</Button>
+                <Typography style={{position: "absolute", top: '13%', left: '4%'}} variant="subtitle2">
+                    Quality:
+                </Typography>
+                <Button size="small" style={{
+                    position: "absolute",
+                    top: '16.5%',
+                    left: '3.4%',
+                    fontWeight: '350',
+                    fontSize: '1.68vh'
+                }}>Max Quality</Button>
+                <Button style={{position: "absolute", top: '30%', left: '0%', width: '10%', height: '70%'}} sty
+                        onMouseDown={() => {
+                            this.rotateBottle('left')
+                        }}><ArrowLeft style={{fontSize: '40'}}/></Button>
+                <Button style={{position: "absolute", top: '30%', left: '90%', width: '10%', height: '70%'}}
+                        onMouseDown={() => {
+                            this.rotateBottle('right')
+                        }}><ArrowRight style={{fontSize: '40'}}/></Button>
                 <div id="container">
                     <div id="frame">
-                        <div class="strip" style={{transform: `rotateY(${this.state.previewRotation}deg)`}}>
-                            
-                            
-                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="a"></div>
-                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="b"></div>
-                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="c"></div>
-                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="d"></div>
-                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="e"></div>
-                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="f"></div>
-                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="g"></div>
-                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="h"></div>
-                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="i"></div>
-                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="j"></div>
-                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="k"></div>
-                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="l"></div>
-                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="m"></div>
-                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="n"></div>
-                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="o"></div>
-                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="p"></div>
-                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="q"></div>
-                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="r"></div>
-                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="s"></div>
-                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="t"></div>
-                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="u"></div>
-                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="v"></div>
-                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="w"></div>
-                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} class="x"></div>
+                        <div className="strip" style={{transform: `rotateY(${this.state.previewRotation}deg)`}}>
+
+
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} className="a"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} className="b"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} className="c"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} className="d"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} className="e"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} className="f"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} className="g"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} className="h"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} className="i"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} className="j"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} className="k"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} className="l"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} className="m"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} className="n"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} className="o"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} className="p"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} className="q"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} className="r"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} className="s"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} className="t"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} className="u"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} className="v"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} className="w"></div>
+                            <div style={{backgroundImage: `url(${this.state.fullImage})`}} className="x"></div>
 
                         </div>
                     </div>
                 </div>
             </div>
-            }
-            
         </Paper>
 
 
@@ -653,7 +690,7 @@ export default class MainPage extends Component {
       <Grid className="sixty"   >
         <div className="paper">
             <Grid xs={12} container  spacing={0}>
-                <Grid  xs={5} item> 
+                <Grid  xs={5} item>
                     <Typography component="h2" variant="h7" gutterBottom>
                         Colors
                     </Typography>
@@ -672,7 +709,7 @@ export default class MainPage extends Component {
                             {this.state.colors.map(color => (
                                 <option value={color.hex}>{color.name.toString()}</option>
                             ))}
-                            
+
                         </NativeSelect>
                         <Typography style={{color:'#777777'}} variant="body1">or</Typography>
                         <TextField id="labelColor" onChange={this.handleChange('labelColor')} value={this.state.labelColor} style={{width:"150px"}} size="small" label="#FFFFFF" variant="outlined" />
@@ -717,7 +754,7 @@ export default class MainPage extends Component {
                         <Typography style={{color:'#777777'}} variant="body1">or</Typography>
                         <TextField id="globalTextColor" onChange={this.handleChange('globalTextColor')} value={this.state.globalTextColor} style={{width:"150px"}} size="small" label="Custom HEX" variant="outlined" />
                     </div>
-                    
+
                     <Typography style={{paddingTop:'15px'}}  variant="subtitle2"gutterBottom>
                         Secondary text color
                     </Typography>
@@ -736,7 +773,7 @@ export default class MainPage extends Component {
                             ))}
                         </NativeSelect>
                         <Typography style={{color:'#777777'}} variant="body1">or</Typography>
-                        <TextField id="secondaryTextColor" onChange={this.handleChange('secondaryTextColor')} value={this.state.secondaryTextColor} style={{width:"150px"}} size="small" label="Custom HEX" variant="outlined" />   
+                        <TextField id="secondaryTextColor" onChange={this.handleChange('secondaryTextColor')} value={this.state.secondaryTextColor} style={{width:"150px"}} size="small" label="Custom HEX" variant="outlined" />
                     </div>
                     <Typography style={{paddingTop:'15px'}}  variant="subtitle2" gutterBottom>
                         Right side background
@@ -771,10 +808,10 @@ export default class MainPage extends Component {
                                 ))}
                             </NativeSelect>
                             <Typography style={{color:'#777777'}} variant="body1">or</Typography>
-                            <TextField id="rightSideBackgroundColor" onChange={this.handleChange('rightSideBackgroundColor')} value={this.state.rightSideBackgroundColor} style={{width:"150px"}} size="small" label="Custom HEX" variant="outlined" />   
+                            <TextField id="rightSideBackgroundColor" onChange={this.handleChange('rightSideBackgroundColor')} value={this.state.rightSideBackgroundColor} style={{width:"150px"}} size="small" label="Custom HEX" variant="outlined" />
                         </div>
                     : null}
-                    
+
                 </Grid>
                 <Grid style={{marginLeft:'20px'}} key={4} item>
                     <Divider  style={{marginLeft:'2px', paddingLeft:"2px"}} orientation="vertical" />
@@ -784,7 +821,7 @@ export default class MainPage extends Component {
                     <Typography style={{paddingTop:'25px'}}  variant="subtitle2" gutterBottom>
                         Background
                     </Typography>
-                    
+
                     <RadioGroup aria-label="backgroundRadio" name="backgroundRadio" value={this.state.backgroundRadio} onChange={this.handleChange('backgroundRadio')} row>
                         <FormControlLabel
                             value="color"
@@ -854,10 +891,10 @@ export default class MainPage extends Component {
                                 ))}
                             </NativeSelect>
                             <Typography style={{color:'#777777'}} variant="body1">or</Typography>
-                            <TextField id="patternColor"  onChange={this.handleChange('patternColor')} value={this.state.patternColor} style={{width:"150px"}} size="small" label="Custom HEX" variant="outlined" />   
+                            <TextField id="patternColor"  onChange={this.handleChange('patternColor')} value={this.state.patternColor} style={{width:"150px"}} size="small" label="Custom HEX" variant="outlined" />
                         </div>
                     </div>
-                    : 
+                    :
                     <div>
                         <Typography style={{paddingTop:'15px'}}  variant="subtitle2"gutterBottom>
                             File
@@ -978,11 +1015,11 @@ export default class MainPage extends Component {
                     </div>
                     }
                 </Grid>
-                
+
             </Grid>
-            
+
             <Divider style={{marginTop:"30px",paddingTop:'2px'}}/>
-            <Grid  xs={5} item> 
+            <Grid  xs={5} item>
                 <Typography style={{marginTop:"10px"}} component="h2" variant="h7" gutterBottom>
                     Label Language
                 </Typography>
@@ -1002,7 +1039,7 @@ export default class MainPage extends Component {
                 </RadioGroup>
             </Grid>
             <Divider style={{marginTop:"30px",paddingTop:'2px'}}/>
-            <Grid  xs={11} item> 
+            <Grid  xs={11} item>
                 <Typography style={{marginTop:"10px"}} component="h2" variant="h7" gutterBottom>
                 Personalization
                 </Typography>
@@ -1023,9 +1060,9 @@ export default class MainPage extends Component {
                         labelPlacement="end"
                     />
                 </RadioGroup>
-                {this.state.beerName ==="text"? 
+                {this.state.beerName ==="text"?
                 <div className="first">
-                    <Grid  xs={2} item> 
+                    <Grid  xs={2} item>
                     <Typography style={{paddingTop:'5px'}}  variant="subtitle2"gutterBottom>
                         Title
                     </Typography>
@@ -1038,7 +1075,7 @@ export default class MainPage extends Component {
                     value={this.state.beerNameTitle}
                     />
                     </Grid>
-                    <Grid  xs={2} item> 
+                    <Grid  xs={2} item>
                     <Typography style={{paddingTop:'5px'}}  variant="subtitle2"gutterBottom>
                         Color
                     </Typography>
@@ -1056,7 +1093,7 @@ export default class MainPage extends Component {
                                 ))}
                             </NativeSelect>
                     </Grid>
-                    <Grid  xs={3} item> 
+                    <Grid  xs={3} item>
                     <Typography style={{paddingTop:'5px'}}  variant="subtitle2"gutterBottom>
                         Font-size
                     </Typography>
@@ -1085,7 +1122,7 @@ export default class MainPage extends Component {
                                 </Grid>
                             </Grid>
                     </Grid>
-                    <Grid  xs={3} item> 
+                    <Grid  xs={3} item>
                     <Typography style={{paddingTop:'5px'}}  variant="subtitle2"gutterBottom>
                         Vertical Allignment
                     </Typography>
@@ -1119,13 +1156,13 @@ export default class MainPage extends Component {
                 <div>
                     <Grid xs={8} item>
                         <div className="first">
-                            <Grid  xs={2} item> 
+                            <Grid  xs={2} item>
                             <Typography style={{paddingTop:'5px'}}  variant="subtitle2"gutterBottom>
                                 File
                             </Typography>
                             <input accept="image/*" className="input" id="beerLogoImage" onChange={this.handleBeerLogo()} type="file" />
                             </Grid>
-                            <Grid  xs={6} item> 
+                            <Grid  xs={6} item>
                             <Typography style={{paddingTop:'5px'}}  variant="subtitle2"gutterBottom>
                                 Force Color
                             </Typography>
@@ -1143,7 +1180,7 @@ export default class MainPage extends Component {
                             </Grid>
                         </div>
                         <div style={{paddingTop:"20px"}} className="first">
-                            <Grid  xs={6} item> 
+                            <Grid  xs={6} item>
                                 <Typography style={{paddingTop:'5px'}}  variant="subtitle2"gutterBottom>
                                     Size
                                 </Typography>
@@ -1173,7 +1210,7 @@ export default class MainPage extends Component {
                                     </Grid>
                                 </Grid>
                             </Grid>
-                            <Grid  xs={6} item> 
+                            <Grid  xs={6} item>
                                 <Typography style={{paddingTop:'5px'}}  variant="subtitle2"gutterBottom>
                                     Vertical alignment
                                 </Typography>
@@ -1206,7 +1243,7 @@ export default class MainPage extends Component {
                     </Grid>
                 </div>
                 }
-                
+
                 <Typography style={{paddingTop:'20px'}}  variant="subtitle2"gutterBottom>
                     Brewer name
                 </Typography>
@@ -1226,7 +1263,7 @@ export default class MainPage extends Component {
                 </RadioGroup>
                 {this.state.brewerName ==="text"?
                     <div className="first">
-                    <Grid  xs={2} item> 
+                    <Grid  xs={2} item>
                     <Typography style={{paddingTop:'5px'}}  variant="subtitle2"gutterBottom>
                         Title
                     </Typography>
@@ -1239,7 +1276,7 @@ export default class MainPage extends Component {
                     value={this.state.brewerNameTitle}
                     />
                     </Grid>
-                    <Grid  xs={2} item> 
+                    <Grid  xs={2} item>
                     <Typography style={{paddingTop:'5px'}}  variant="subtitle2"gutterBottom>
                         Color
                     </Typography>
@@ -1257,7 +1294,7 @@ export default class MainPage extends Component {
                                 ))}
                             </NativeSelect>
                     </Grid>
-                    <Grid  xs={3} item> 
+                    <Grid  xs={3} item>
                     <Typography style={{paddingTop:'5px'}}  variant="subtitle2"gutterBottom>
                         Font-size
                     </Typography>
@@ -1286,7 +1323,7 @@ export default class MainPage extends Component {
                                 </Grid>
                             </Grid>
                     </Grid>
-                    <Grid  xs={3} item> 
+                    <Grid  xs={3} item>
                     <Typography style={{paddingTop:'5px'}}  variant="subtitle2"gutterBottom>
                         Vertical Allignment
                     </Typography>
@@ -1320,13 +1357,13 @@ export default class MainPage extends Component {
                 <div>
                     <Grid xs={8} item>
                         <div className="first">
-                            <Grid  xs={2} item> 
+                            <Grid  xs={2} item>
                             <Typography style={{paddingTop:'5px'}}  variant="subtitle2"gutterBottom>
                                 File
                             </Typography>
                             <input accept="image/*" className="input" id="BrewerNameLogo" onChange={this.handleBrewerLogo()} type="file" />
                             </Grid>
-                            <Grid  xs={6} item> 
+                            <Grid  xs={6} item>
                             <Typography style={{paddingTop:'5px'}}  variant="subtitle2"gutterBottom>
                                 Force Color
                             </Typography>
@@ -1344,7 +1381,7 @@ export default class MainPage extends Component {
                             </Grid>
                         </div>
                         <div style={{paddingTop:"20px"}} className="first">
-                            <Grid  xs={6} item> 
+                            <Grid  xs={6} item>
                                 <Typography style={{paddingTop:'5px'}}  variant="subtitle2"gutterBottom>
                                     Size
                                 </Typography>
@@ -1374,7 +1411,7 @@ export default class MainPage extends Component {
                                     </Grid>
                                 </Grid>
                             </Grid>
-                            <Grid  xs={6} item> 
+                            <Grid  xs={6} item>
                                 <Typography style={{paddingTop:'5px'}}  variant="subtitle2"gutterBottom>
                                     Vertical alignment
                                 </Typography>
@@ -1407,17 +1444,17 @@ export default class MainPage extends Component {
                     </Grid>
                 </div>
                 }
-                
+
                 <Typography style={{paddingTop:'20px'}}  variant="subtitle2"gutterBottom>
                    Crafted Description
                 </Typography>
                 <Grid xs={2} item>
                     <div className="first">
-                    <Grid  xs={2} item> 
+                    <Grid  xs={2} item>
                     <Typography style={{paddingTop:'5px'}}  variant="subtitle2"gutterBottom>
                         Text
                     </Typography>
-                    
+
                     <NativeSelect
                             style={{width:"100px"}}
                             gutterBottom
@@ -1431,7 +1468,7 @@ export default class MainPage extends Component {
                                 <option value="crafted for">Crafted for</option>
                             </NativeSelect>
                     </Grid>
-                    <Grid  xs={2} item> 
+                    <Grid  xs={2} item>
                     <Typography style={{paddingTop:'5px'}}  variant="subtitle2"gutterBottom>
                         Color
                     </Typography>
@@ -1451,7 +1488,7 @@ export default class MainPage extends Component {
                     </Grid>
                     </div>
                 </Grid>
-                <Grid  xs={12} item> 
+                <Grid  xs={12} item>
                 <Divider style={{marginTop:"30px",paddingTop:'2px'}}/>
                 <Typography style={{marginTop:"10px"}} component="h2" variant="h7" gutterBottom>
                 Legend
@@ -1461,7 +1498,7 @@ export default class MainPage extends Component {
                     <Typography style={{paddingTop:'5px'}}  variant="subtitle2"gutterBottom>
                         Bitterness
                     </Typography>
-                    
+
                     <RadioGroup aria-label="bitterness" name="bitterness" value={this.state.legendBitterness} onChange={this.handleChange('legendBitterness')} row>
                         <FormControlLabel
                             value="0"
@@ -1503,7 +1540,7 @@ export default class MainPage extends Component {
                     </Typography>
                     <RadioGroup  aria-label="legendColor" name="legendColor" value={this.state.legendColor} onChange={this.handleChange('legendColor')} row>
                         <FormControlLabel
-                            
+
                             value="notDefined"
                             control={<Radio color="primary" />}
                             label="Not Defined"
@@ -1522,7 +1559,7 @@ export default class MainPage extends Component {
                             labelPlacement="end"
                         />
                         <FormControlLabel
-                            style={{marginRight: '72px'}}   
+                            style={{marginRight: '72px'}}
                             value="3"
                             control={<Radio color="primary" />}
                             label="3"
@@ -1536,7 +1573,7 @@ export default class MainPage extends Component {
                     <Typography style={{paddingTop:'5px'}}  variant="subtitle2"gutterBottom>
                         Strength
                     </Typography>
-                    
+
                     <RadioGroup aria-label="legendStrength" name="legendStrength" value={this.state.legendStrength} onChange={this.handleChange('legendStrength')} row>
                         <FormControlLabel
                             value="notDefined"
@@ -1557,7 +1594,7 @@ export default class MainPage extends Component {
                             labelPlacement="end"
                         />
                         <FormControlLabel
-                            style={{marginRight: '72px'}}   
+                            style={{marginRight: '72px'}}
                             value="3"
                             control={<Radio color="primary" />}
                             label="3"
@@ -1569,16 +1606,16 @@ export default class MainPage extends Component {
                 </Grid>
             </Grid>
             <Divider style={{marginTop:"30px",paddingTop:'2px'}}/>
-            <Grid  xs={11} item> 
+            <Grid  xs={11} item>
                 <Typography style={{marginTop:"10px"}} component="h2" variant="h7" gutterBottom>
                 Text
                 </Typography>
                 <Typography style={{paddingTop:'5px'}}  variant="subtitle2"gutterBottom>
                     Ingredients
                 </Typography>
-                
+
                 <div className="first">
-                <Grid  xs={2} item> 
+                <Grid  xs={2} item>
                 <Typography style={{paddingTop:'5px'}}  variant="subtitle2"gutterBottom>
                     Title
                 </Typography>
@@ -1591,7 +1628,7 @@ export default class MainPage extends Component {
                 onChange={this.handleChange('textTitleIngredients')}
                 />
                 </Grid>
-                <Grid  xs={2} item> 
+                <Grid  xs={2} item>
                 <Typography style={{paddingTop:'5px'}}  variant="subtitle2"gutterBottom>
                     Color
                 </Typography>
@@ -1609,7 +1646,7 @@ export default class MainPage extends Component {
                             ))}
                         </NativeSelect>
                 </Grid>
-                <Grid  xs={3} item> 
+                <Grid  xs={3} item>
                 <Typography style={{paddingTop:'5px'}}  variant="subtitle2"gutterBottom>
                     Font-size
                 </Typography>
@@ -1638,7 +1675,7 @@ export default class MainPage extends Component {
                             </Grid>
                         </Grid>
                 </Grid>
-                <Grid  xs={3} item> 
+                <Grid  xs={3} item>
                 <Typography style={{paddingTop:'5px'}}  variant="subtitle2"gutterBottom>
                     Horizontal Allignment
                 </Typography>
@@ -1685,18 +1722,18 @@ export default class MainPage extends Component {
                         labelPlacement="end"
                     />
                 </RadioGroup>
-                {this.state.rightTextRadio==="1"? 
+                {this.state.rightTextRadio==="1"?
                 <Typography style={{paddingTop:'5px'}}  variant="subtitle2"gutterBottom>
                     Text (Auto)
-                </Typography> 
+                </Typography>
                 :
                 <Typography style={{paddingTop:'5px'}}  variant="subtitle2"gutterBottom>
                     Top Text (Auto)
-                </Typography> 
+                </Typography>
                 }
-                
+
                 <div className="first">
-                <Grid  xs={2} item> 
+                <Grid  xs={2} item>
                 <Typography style={{paddingTop:'5px'}}  variant="subtitle2"gutterBottom>
                     Title
                 </Typography>
@@ -1709,7 +1746,7 @@ export default class MainPage extends Component {
                 variant="outlined"
                 />
                 </Grid>
-                <Grid  xs={2} item> 
+                <Grid  xs={2} item>
                 <Typography style={{paddingTop:'5px'}}  variant="subtitle2"gutterBottom>
                     Color
                 </Typography>
@@ -1727,7 +1764,7 @@ export default class MainPage extends Component {
                             ))}
                         </NativeSelect>
                 </Grid>
-                <Grid  xs={3} item> 
+                <Grid  xs={3} item>
                 <Typography style={{paddingTop:'5px'}}  variant="subtitle2"gutterBottom>
                     Font-size
                 </Typography>
@@ -1756,7 +1793,7 @@ export default class MainPage extends Component {
                             </Grid>
                         </Grid>
                 </Grid>
-                <Grid  xs={3} item> 
+                <Grid  xs={3} item>
                 <Typography style={{paddingTop:'5px'}}  variant="subtitle2"gutterBottom>
                     Vertical Allignment
                 </Typography>
@@ -1786,13 +1823,13 @@ export default class MainPage extends Component {
                         </Grid>
                 </Grid>
                 </div>
-                {this.state.rightTextRadio==="2"? 
+                {this.state.rightTextRadio==="2"?
                 <div>
                     <Typography style={{paddingTop:'5px'}}  variant="subtitle2"gutterBottom>
                         Bottom Text (Auto)
                     </Typography>
                     <div className="first">
-                    <Grid  xs={2} item> 
+                    <Grid  xs={2} item>
                     <Typography style={{paddingTop:'5px'}}  variant="subtitle2"gutterBottom>
                         Title
                     </Typography>
@@ -1805,7 +1842,7 @@ export default class MainPage extends Component {
                     variant="outlined"
                     />
                     </Grid>
-                    <Grid  xs={2} item> 
+                    <Grid  xs={2} item>
                     <Typography style={{paddingTop:'5px'}}  variant="subtitle2"gutterBottom>
                         Color
                     </Typography>
@@ -1823,7 +1860,7 @@ export default class MainPage extends Component {
                                 ))}
                             </NativeSelect>
                     </Grid>
-                    <Grid  xs={3} item> 
+                    <Grid  xs={3} item>
                     <Typography style={{paddingTop:'5px'}}  variant="subtitle2"gutterBottom>
                         Font-size
                     </Typography>
@@ -1852,7 +1889,7 @@ export default class MainPage extends Component {
                                 </Grid>
                             </Grid>
                     </Grid>
-                    <Grid  xs={3} item> 
+                    <Grid  xs={3} item>
                     <Typography style={{paddingTop:'5px'}}  variant="subtitle2"gutterBottom>
                         Vertical Allignment
                     </Typography>
@@ -1887,7 +1924,7 @@ export default class MainPage extends Component {
                 }
                 <Divider style={{marginTop:"30px",paddingTop:'2px'}}/>
                 </Grid>
-            <Grid  xs={12} item> 
+            <Grid  xs={12} item>
                 <Typography style={{marginTop:"10px"}} component="h2" variant="h7" gutterBottom>
                 Text server rendering
                 </Typography>
@@ -1904,7 +1941,7 @@ export default class MainPage extends Component {
                 />
                 <Divider style={{marginTop:"30px",paddingTop:'2px'}}/>
             </Grid>
-            <Grid  xs={12} item> 
+            <Grid  xs={12} item>
                 <Typography style={{marginTop:"10px"}} component="h2" variant="h7" gutterBottom>
                 Format
                 </Typography>
@@ -1924,7 +1961,7 @@ export default class MainPage extends Component {
                 </RadioGroup>
                 <Button style={{marginTop:"10px"}} fullWidth name="renderOnServer" variant="contained" onClick={this.handleRenderOnServer} color="primary">
                     Render On Server
-                </Button>  
+                </Button>
                 <Divider style={{marginTop:"30px",paddingTop:'2px'}}/>
             </Grid>
         </div>
